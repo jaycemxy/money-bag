@@ -1,7 +1,7 @@
 <template>
   <div>
     <Layout>
-      <p>Labels</p>
+      <p>Money</p>
     </Layout>
   </div>
 </template>
