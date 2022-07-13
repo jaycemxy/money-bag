@@ -1,6 +1,7 @@
 <template>
   <div>
     money页
+    <Nav/>
   </div>
 </template>
 

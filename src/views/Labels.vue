@@ -1,6 +1,7 @@
 <template>
   <div>
     Labels页
+    <Nav/>
   </div>
 </template>
 
