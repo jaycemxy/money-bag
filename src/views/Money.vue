@@ -1,6 +1,8 @@
 <template>
-  <div>
-    money页
+  <div class="nav-wrapper">
+    <div class="content">
+      <p>money页</p>
+    </div>
     <Nav/>
   </div>
 </template>
@@ -12,5 +14,15 @@
 </script>
 
 <style lang="scss" scoped>
-
+.nav-wrapper {
+  border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+.content {
+  border: 1px solid green;
+  flex-grow: 1;
+  overflow: hidden;
+}
 </style>
