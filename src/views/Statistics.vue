@@ -1,7 +1,8 @@
 <template>
   <div>
-    统计页
-    <Nav/>
+    <Layout>
+      <p>统计页面</p>
+    </Layout>
   </div>
 </template>
 
