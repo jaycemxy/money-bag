@@ -34,7 +34,7 @@ nav {
     flex-direction: column;
   }
   > .item.selected {
-    color: pink;
+    color: #ffda47;
   }
 }
 </style>
