@@ -48,11 +48,9 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
-import Layout from '@/components/Layout.vue';
-import Icon from '@/components/Icon.vue';
 
 @Component({
-  components: {Layout, Icon}
+  components: {}
 })
 export default class Bill extends Vue{
   

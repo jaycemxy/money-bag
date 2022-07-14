@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="app">
     <router-view/>
     <div>
     </div>
@@ -7,22 +7,8 @@
 </template>
 
 <style lang="scss">
-* {
-  margin:0;
-  padding: 0;
-  box-sizing: border-box;
-}
-body {
-  line-height: 1.5;
-}
-a {
-  text-decoration: none;
-  color: inherit;
-}
-img {
-  max-width: 100%;
-  max-height: 100%;
-}
+@import "~@/assets/styles/reset.scss";
+@import "~@/assets/styles/helper.scss";
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
