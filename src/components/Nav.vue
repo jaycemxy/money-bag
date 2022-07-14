@@ -16,7 +16,14 @@
 </template>
 
 <script lang="ts">
-export default {
+import Vue from 'vue';
+import {Component} from 'vue-property-decorator';
+import Icon from '@/components/Icon.vue';
+
+@Component({
+  components: {Icon}
+})
+export default class Nav extends Vue {
   
 }
 </script>
