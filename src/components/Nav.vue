@@ -4,11 +4,11 @@
       <Icon name="money"/>
       记账
     </router-link>
-    <router-link to="/labels" class="item" active-class="selected">
+    <router-link to="/bill" class="item" active-class="selected">
       <Icon name="bill"/>
       标签
     </router-link>
-    <router-link to="/statistics" class="item" active-class="selected">
+    <router-link to="/chart" class="item" active-class="selected">
       <Icon name="chart"/>
       统计
     </router-link>

@@ -19,6 +19,10 @@ a {
   text-decoration: none;
   color: inherit;
 }
+img {
+  max-width: 100%;
+  max-height: 100%;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

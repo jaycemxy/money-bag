@@ -1,8 +1,8 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import Money from "@/views/Money.vue";
-import Labels from "@/views/Labels.vue";
-import Statistics from "@/views/Statistics.vue";
+import Bill from "@/views/Bill.vue";
+import Chart from "@/views/Chart.vue";
 import NotFound from "@/views/NotFound.vue";
 
 Vue.use(VueRouter);
@@ -17,12 +17,12 @@ const routes: Array<RouteConfig> = [
     component: Money,
   },
   {
-    path: "/labels",
-    component: Labels,
+    path: "/bill",
+    component: Bill,
   },
   {
-    path: "/statistics",
-    component: Statistics,
+    path: "/chart",
+    component: Chart,
   },
   {
     path: "*",
