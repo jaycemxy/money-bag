@@ -1,38 +1,44 @@
 <template>
   <div class="money">
     <div class="types">
-      <button :class="type === '-' && 'selected'" @click="select('-')">支出</button>
-      <button :class="type === '+' && 'selected'" @click="select('+')">收入</button>
+      <button :class="record.type === '-' && 'selected'" @click="select('-')">支出</button>
+      <button :class="record.type === '+' && 'selected'" @click="select('+')">收入</button>
       <button class="cancel" @click="cancel">取消</button>
     </div>
-    <TagList class-prefix="money" class="tag-list" :tag.sync="tag"/>
+    <TagList class-prefix="money" class="tag-list" :selected-tag.sync="record.tag"/>
     <Calculator class-prefix="money"/>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
-import Icon from '@/components/Icon.vue';
+import {Component, Watch} from 'vue-property-decorator';
 import TagList from '@/components/Money/TagList.vue';
 import Calculator from '@/components/Money/Calculator.vue';
 
 @Component({
-  components: {TagList, Calculator, Icon}
+  components: {TagList, Calculator}
 })
 export default class Money extends Vue {
-  type= '-';
-  tag: TagItem = {name: 'food', value: '餐饮'};
+  record: RecordItem = {tag: {name: 'food', value: '餐饮'}, type: '-', note: '', amount: 0};
 
   get tagList(): TagItem[] {
     return this.$store.state.tagList;
   }
 
   select(type: string) {
-    this.type = type;
+    this.record.type = type;
   }
   cancel(){
     this.$router.replace('/bill');
+  }
+
+  @Watch('record', {deep: true})
+  listenRecord(val: RecordItem) {
+    console.log(val.tag.name, val.tag.value);
+    console.log(val.type);
+    console.log(val.note);
+    console.log(val.amount);
   }
 }
 </script>
@@ -41,10 +47,10 @@ export default class Money extends Vue {
 @import '~@/assets/styles/style.scss';
 ::v-deep {
   .money-calculator {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100vw;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100vw;
   }
 }
 .money {
