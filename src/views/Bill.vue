@@ -43,15 +43,15 @@
           <span>{{getTitle(group)}}</span>
           <span>{{getTotal(group)}}</span>
         </div>
-        <ul class="items">
-          <li class="item" v-for="(item, index) in group.items" :key="index">
+        <div class="items">
+          <router-link class="item" v-for="(item, index) in group.items" :key="index" :to="`/record/edit/${item.id}`">
             <div class="tag">
               <Icon :name="item.tag.name" class="icon"/>
               <span>{{item.tag.value}}</span>
             </div>
             <span>{{getAmount(item)}}</span>
-          </li>
-        </ul>
+          </router-link>
+        </div>
       </li>
     </ul>
 
