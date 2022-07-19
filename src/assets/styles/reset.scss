@@ -20,3 +20,16 @@ ul, ol, li {
 :focus {
   outline: none;
 }
+button {
+  border: none;
+  background: inherit;
+}
+select {
+  border: none;
+  outline: none;
+  background: inherit;
+  //隐藏select的下拉图标
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}

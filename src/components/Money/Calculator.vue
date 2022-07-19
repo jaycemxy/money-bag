@@ -58,8 +58,8 @@ export default class Calculator extends Vue {
     }
   }
   handleInput(button: string){
-    // 最大有效位数6位
-    if(this.output.length >= 6){ return; }
+    // 最大有效位数21位
+    if(this.output.length >= 21){ return; }
     // 数字不能以零开头
     if(this.output === '0'){
       if('0123456789'.indexOf(button)>=0){
