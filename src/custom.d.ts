@@ -4,6 +4,7 @@ type TagItem = {
 };
 
 type RecordItem = {
+  id?: number;
   tag: TagItem;
   type: string;
   note: string;
