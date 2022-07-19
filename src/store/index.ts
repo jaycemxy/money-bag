@@ -5,15 +5,23 @@ import idCreator from "@/lib/idCreator";
 
 Vue.use(Vuex);
 
+type storeState = {
+  tagList: TagItem[];
+  tagListError: "" | "duplicate";
+  recordList: RecordItem[];
+  recordListError: "" | "notfound";
+  currentRecord: RecordItem | undefined;
+};
+
 const store = new Vuex.Store({
   state: {
-    tagList: (JSON.parse(window.localStorage.getItem("tag-list") || "0") ||
-      defaultTags) as TagItem[],
-    recordList: JSON.parse(
-      window.localStorage.getItem("record-list") || "[]"
-    ) as RecordItem[],
+    tagList: JSON.parse(window.localStorage.getItem("tag-list") || "0") || defaultTags,
+    recordList: JSON.parse(window.localStorage.getItem("record-list") || "[]"),
     tagListError: "",
-  },
+    recordListError: "",
+    currentRecord: undefined,
+  } as storeState,
+
   mutations: {
     insertRecord(state, record: RecordItem) {
       record.id = idCreator();
@@ -21,11 +29,45 @@ const store = new Vuex.Store({
       state.recordList.push(record);
       store.commit("saveRecord");
     },
+    findRecord(state, id: number) {
+      state.currentRecord = undefined;
+      const record = state.recordList.filter((item) => item.id === id)[0];
+      if (record) {
+        state.currentRecord = record;
+      }
+    },
+    updateRecord(state, payload: { id: number; record: RecordItem }) {
+      const { id, record } = payload;
+      let index = 0;
+      for (index = 0; index < state.recordList.length; index++) {
+        if (state.recordList[index].id === id) {
+          break;
+        }
+      }
+      if (index === state.recordList.length) {
+        state.recordListError = "notfound";
+      } else {
+        state.recordList.splice(index, 1);
+        store.commit("saveRecord");
+      }
+    },
+    removeRecord(state, id: number) {
+      state.recordListError = "";
+      let index = 0;
+      for (index = 0; index < state.recordList.length; index++) {
+        if (state.recordList[index].id === id) {
+          break;
+        }
+      }
+      if (index === state.recordList.length) {
+        state.recordListError = "notfound";
+      } else {
+        state.recordList.splice(index, 1);
+        store.commit("saveRecord");
+      }
+    },
     saveRecord(state) {
-      window.localStorage.setItem(
-        "record-list",
-        JSON.stringify(state.recordList)
-      );
+      window.localStorage.setItem("record-list", JSON.stringify(state.recordList));
     },
     insertTag(state, tag: TagItem) {
       state.tagListError = "";

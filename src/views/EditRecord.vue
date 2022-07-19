@@ -1,7 +1,7 @@
 <template>
   <div class="edit">
     <header class="header">
-      <button class="back">
+      <button class="back" @click="back">
         <Icon name="left"/>
       </button>
       <div class="tag">
@@ -18,7 +18,7 @@
         <li>
           <label>
             <span class="name">类型</span>
-            <input type="text" v-model="record.type">
+            <div class="type">{{record.type === '-' ? '支出':'收入'}}</div>
           </label>
         </li>
         <li>
@@ -30,7 +30,8 @@
         <li>
           <label>
             <span class="name">日期</span>
-            <span>2022年7月</span>
+            <DatePicker :initial-date="dayjs(record.createAt).toISOString()" 
+              @update:year="updateYear" @update:month="updateMonth" @update:date="updateDate"/>
           </label>
         </li>
         <li>
@@ -42,8 +43,8 @@
       </ul>
     </main>
     <footer class="footer">
-      <button>编辑完成</button>
-      <button>删除</button>
+      <button @click="ok">编辑完成</button>
+      <button @click="remove">删除</button>
     </footer>
   </div>
 </template>
@@ -52,19 +53,66 @@
 import Vue from 'vue';
 import {Component, Watch} from 'vue-property-decorator';
 import Icon from '@/components/Icon.vue';
+import dayjs from 'dayjs';
+import DatePicker from '@/components/DatePicker.vue';
 
 @Component({
-  components: {Icon}
+  components: {Icon, DatePicker}
 })
 export default class EditRecord extends Vue {
-  record: RecordItem = {
-    id: 1,
-    tag: {name:'food',value: '餐饮'},
-    type: '-',
-    note: '请客吃饭',
-    amount: 100,
-    createAt: new Date()
+  record?: RecordItem;
+  dayjs = dayjs;
+  
+  created() {
+    this.$store.commit('findRecord', parseInt(this.$route.params.id));
+    this.record = this.$store.state.currentRecord;
+    if(!this.record) {
+      this.record = {
+        id: 0,
+        tag: {name: 'food', value: '餐饮'},
+        type: '-',
+        note: '',
+        amount: 0,
+        createAt: new Date()
+      }
+    };
   }
+  updateYear(year: number) {
+    if (this.record) {
+      this.record.createAt = dayjs(this.record.createAt).year(year).toDate();
+    }
+  }
+  updateMonth(month: number) {
+    if (this.record) {
+      this.record.createAt = dayjs(this.record.createAt).month(month - 1).toDate();
+    }
+  }
+  updateDate(date: number) {
+    if (this.record) {
+      this.record.createAt = dayjs(this.record.createAt).date(date).toDate();
+    }
+  }
+
+  back() {
+    this.$router.replace('/bill');
+  }
+  ok() {
+    if (this.record) {
+      this.$store.commit('updateRecord', {id: this.record.id, record: this.record});
+    }
+    this.$router.replace('/bill');
+  }
+  remove() {
+    if(this.record) {
+      this.$store.commit('removeRecord', this.record.id);
+      if(this.$store.state.recordListError === 'notfound'){
+        window.alert('记录不存在');
+      } else {
+        this.$router.replace('/bill');
+      }
+    }
+  }
+
   @Watch('record.createAt')
   log(val: Date) {
     console.log(val);
@@ -115,6 +163,11 @@ export default class EditRecord extends Vue {
       .name {
         color: #999;
         margin-right: 16px;
+      }
+      .type {
+        height: 40px;
+        display: flex;
+        align-items: center;
       }
       input {
         border: none;
