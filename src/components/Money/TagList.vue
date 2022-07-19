@@ -1,16 +1,22 @@
 <template>
-  <ul class="tags">
-    <li v-for="(tag,index) in tagList" :key="index" @click="select(tag)">
-      <div class="icon-wrapper" :class="{'selected': tag.name === selectedTag.name}">
+  <ul class="tags" :class="{[classPrefix+'-tags']: classPrefix}">
+    <li 
+      v-for="(tag,index) in tagList" :key="index" 
+      @click="select(tag)"
+      class="tags-item" 
+      :class="{[classPrefix+'-tags-item']: classPrefix}"
+    >
+      <div class="tags-item-icon" :class="{'selected': tag.name === selectedTag.name, [classPrefix+'-tags-item-icon']: classPrefix}">
         <Icon :name="tag.name"/>
       </div>
       <span>{{tag.value}}</span>
     </li>
-    <li>
-      <div class="icon-wrapper" @click="add">
+
+    <li v-if="dynamic" class="tags-item">
+      <div class="tags-item-icon" @click="add">
         <Icon name="add"/>
-        <span>添加</span>
       </div>
+      <span>添加</span>
     </li>
   </ul>
 </template>
@@ -24,10 +30,13 @@ import Icon from '@/components/Icon.vue';
     components: {Icon}
 })
 export default class TagList extends Vue {
+  @Prop(String) classPrefix?: string;
   @Prop({required:true, type:Object}) selectedTag!: TagItem;
-  get tagList(): TagItem[] {
-    return this.$store.state.tagList;
-  }
+  @Prop({default: false, type: Boolean}) dynamic!: boolean;
+  @Prop({required: true, type: Array}) tagList!: TagItem[];
+  // get tagList(): TagItem[] {
+  //   return this.$store.state.tagList;
+  // }
   select(tag: TagItem) {
     this.$emit('update:selectedTag', tag);
   }
@@ -39,19 +48,20 @@ export default class TagList extends Vue {
 
 <style lang="scss" scoped>
 .tags {
-  flex-grow: 1;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  flex-direction: row;
+  align-content: flex-start;
   padding: 16px;
-  > li {
+  overflow: auto;
+  &-item {
+    width: 25%;
     display: flex;
     flex-direction: column;
     align-items: center;
     font-size: 12px;
-    width: 25%;
     padding: 12px 0;
-    .icon-wrapper {
+    &-icon {
       width: 48px;
       height: 48px;
       padding: 4px;

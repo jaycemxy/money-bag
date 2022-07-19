@@ -5,8 +5,8 @@
       <button :class="record.type === '+' && 'selected'" @click="select('+')">收入</button>
       <button class="cancel" @click="cancel">取消</button>
     </div>
-    <TagList class-prefix="money" class="tag-list" :selected-tag.sync="record.tag"/>
-    <Calculator class-prefix="money"/>
+    <TagList class-prefix="money" class="tag-list" :selected-tag.sync="record.tag" :dynamic="true" :tag-list="tagList"/>
+    <Calculator class-prefix="money" :note.sync="record.note" :amount.sync="record.amount" @complete="complete"/>
   </div>
 </template>
 
@@ -15,21 +15,30 @@ import Vue from 'vue';
 import {Component, Watch} from 'vue-property-decorator';
 import TagList from '@/components/Money/TagList.vue';
 import Calculator from '@/components/Money/Calculator.vue';
+import clone from '@/lib/clone';
 
 @Component({
   components: {TagList, Calculator}
 })
 export default class Money extends Vue {
-  record: RecordItem = {tag: {name: 'food', value: '餐饮'}, type: '-', note: '', amount: 0};
+  record: RecordItem = this.initRecord();
 
   get tagList(): TagItem[] {
     return this.$store.state.tagList;
+  }
+  initRecord(): RecordItem{
+    return {tag: {name: 'food', value: '餐饮'}, type: '-', note: '', amount: 0};
   }
 
   select(type: string) {
     this.record.type = type;
   }
   cancel(){
+    this.$router.replace('/bill');
+  }
+  complete(){
+    this.$store.commit('insertRecord', clone<RecordItem>(this.record));
+    this.record =this.initRecord();
     this.$router.replace('/bill');
   }
 
