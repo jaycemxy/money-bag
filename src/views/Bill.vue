@@ -2,7 +2,7 @@
   <Layout>
     <header class="header">
       <div class="logo">
-        <span>XianYu Account</span>
+        <span>咸鱼记账</span>
       </div>
 
       <div class="info">
@@ -11,8 +11,8 @@
             <option v-for="y in years" :key="y" :value="y">{{y}}年</option>
           </select>
           <div class="month">
-            <select v-model="year" class="year">
-              <option v-for="m in 12" :key="m" :value="m">{{beautifyMonth(m)}}月</option>
+            <select v-model="month" class="month">
+              <option v-for="m in 12" :key="m" :value="m">{{beautifyMonth(m)}}</option>
             </select>
             <span>月</span>
           </div>

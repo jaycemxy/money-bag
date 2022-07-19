@@ -41,15 +41,11 @@ const store = new Vuex.Store({
       let index = 0;
       for (index = 0; index < state.recordList.length; index++) {
         if (state.recordList[index].id === id) {
+          state.recordList[index] = record;
           break;
         }
       }
-      if (index === state.recordList.length) {
-        state.recordListError = "notfound";
-      } else {
-        state.recordList.splice(index, 1);
-        store.commit("saveRecord");
-      }
+      store.commit("saveRecord");
     },
     removeRecord(state, id: number) {
       state.recordListError = "";
