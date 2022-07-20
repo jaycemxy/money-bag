@@ -5,23 +5,26 @@
       <button :class="record.type === '+' && 'selected'" @click="select('+')">收入</button>
       <button class="cancel" @click="cancel">取消</button>
     </div>
-    <TagList class-prefix="money" class="tag-list" :selected-tag.sync="record.tag" :dynamic="true" :tag-list="tagList"/>
+    <TagList v-if="record.type==='-'" class-prefix="money" class="tag-list" :selected-tag.sync="record.tag" :dynamic="true" :tag-list="tagList"/>
+    <TagList v-else-if="record.type === '+'" class-prefix="money" class="tag-list" :selected-tag.sync="record.tag" :tag-list="incomeTags" />
     <Calculator class-prefix="money" :note.sync="record.note" :amount.sync="record.amount" @complete="complete"/>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
+import {Component, Watch} from 'vue-property-decorator';
 import TagList from '@/components/Money/TagList.vue';
 import Calculator from '@/components/Money/Calculator.vue';
 import clone from '@/lib/clone';
+import {defaultIncomeTags} from '@/constants/defaultTags';
 
 @Component({
   components: {TagList, Calculator}
 })
 export default class Money extends Vue {
   record: RecordItem = this.initRecord();
+  incomeTags = defaultIncomeTags;
 
   get tagList(): TagItem[] {
     return this.$store.state.tagList;
@@ -41,6 +44,8 @@ export default class Money extends Vue {
     this.record =this.initRecord();
     this.$router.replace('/bill');
   }
+
+  
 }
 </script>
 
