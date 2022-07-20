@@ -37,7 +37,7 @@
       </div>
     </header>
 
-    <ul class="record">
+    <ul class="record" v-if="recordList.length > 0">
       <li v-for="(group, index) in groupList" :key="index">
         <div class="title">
           <span>{{getTitle(group)}}</span>
@@ -54,6 +54,12 @@
         </div>
       </li>
     </ul>
+    <div v-else class="no-record">
+      <div class="icon">
+        <Icon name="no-record"/>
+      </div>
+      <span>暂时没有记录，赶快记一笔吧~</span>
+    </div>
 
   </Layout>
 </template>
@@ -316,6 +322,22 @@ export default class Bill extends Vue{
         }
       }
     }
+  }
+}
+.no-record {
+  margin-top: 20vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .icon {
+    width: 80px;
+    height: 80px;
+  }
+  span {
+    color: #999;
+    font-size: 12px;
+    margin-top: 10px;
   }
 }
 </style>
