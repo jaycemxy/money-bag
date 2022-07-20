@@ -54,12 +54,7 @@
         </div>
       </li>
     </ul>
-    <div v-else class="no-record">
-      <div class="icon">
-        <Icon name="no-record"/>
-      </div>
-      <span>暂时没有记录，赶快记一笔吧~</span>
-    </div>
+    <NoRecord v-else/>
 
   </Layout>
 </template>
@@ -71,6 +66,7 @@ import Icon from '@/components/Icon.vue';
 import Layout from '@/components/Layout.vue';
 import dayjs from 'dayjs';
 import clone from '@/lib/clone';
+import NoRecord from '@/components/NoRecord.vue';
 
 type Group = {
   name: string;
@@ -78,7 +74,7 @@ type Group = {
 }
 
 @Component({
-  components: {Icon, Layout}
+  components: {Icon, Layout, NoRecord}
 })
 export default class Bill extends Vue{
   year = window.sessionStorage.getItem('year') || dayjs().year().toString();
@@ -322,22 +318,6 @@ export default class Bill extends Vue{
         }
       }
     }
-  }
-}
-.no-record {
-  margin-top: 20vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  .icon {
-    width: 80px;
-    height: 80px;
-  }
-  span {
-    color: #999;
-    font-size: 12px;
-    margin-top: 10px;
   }
 }
 </style>
