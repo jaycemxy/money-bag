@@ -2,21 +2,30 @@
   <div>
     <Layout>
       <header class="header">
-        <div :value="type" class="type">支出</div>
+        <div class="choose">
+          <select v-model="type" class="type">
+            <option v-for="(t, index) in typeList" :key="index" :value="t.value">{{t.name}}</option>
+          </select>
+          <Icon name="triangle"/>
+        </div>
         <div class="period">
-          <span class="selected">周</span>
-          <span>月</span>
-          <span>年</span>
+          <span :class="interval==='week' && 'selected'">周</span>
+          <span :class="interval==='month' && 'selected'">月</span>
+          <span :class="interval==='year' && 'selected'">年</span>
         </div>
       </header>
 
       <div class="chart">
         <div class="caption">
-          <span>本周</span>
+          <span v-if="interval==='week'">本周</span>
+          <span v-else-if="interval==='month'">本月</span>
+          <span v-else>今年</span>
+        </div>
+        <div class="info">
           <div class="total">总支出：￥2890</div>
           <div class="average">平均值：￥35.8</div>
-          <div id="figure"></div>
         </div>
+        <div id="figure"></div>
       </div>
 
       <div class="ranking">
@@ -61,7 +70,18 @@ import echarts from 'echarts';
   components: {Layout, Icon}
 })
 export default class Chart extends Vue{
-  type = '-';
+  type: '-' | '+' = '-';
+  interval: 'week'|'month'|'year' = 'week';
+
+  typeList = [
+    {name: '支出', value: '-'},
+    {name: '收入', value: '+'}
+  ]
+  intervalList = [
+    {name: '周', value: 'week'},
+    {name: '月', value: 'month'},
+    {name: '年', value: 'year'}
+  ]
 }
 </script>
 
@@ -69,9 +89,18 @@ export default class Chart extends Vue{
 .header {
   background: #ffda47;
   padding: 4px 0;
-  .type {
-    font-size: 20px;
-    padding: 4px 8px;
+  .choose {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .type {
+      font-size: 20px;
+      padding: 8px 0;
+    }
+    .icon {
+      width: 16px;
+      height: 16px;
+    }
   }
   .period {
     margin: 8px 16px;
@@ -96,20 +125,21 @@ export default class Chart extends Vue{
   }
 }
 .chart {
-  padding: 6px 0;
   border-bottom: 1px solid #ddd;
   .caption {
-    border-bottom: 1px solid #ddd;
     display: flex;
     flex-direction: column;
     text-align: left;
-    color: #999;
-    font-size: 14px;
     span {
       color: #333;
       border-bottom: 1px solid #ddd;
       padding: 8px 16px;
     }
+  }
+  .info {
+    text-align: left;
+    color: #999;
+    font-size: 14px;
     .total {
       padding: 6px 6px;
     }
@@ -117,10 +147,10 @@ export default class Chart extends Vue{
       padding: 0 6px;
       margin-bottom: 16px;
     }
-    #figure {
-      width: 100%;
-      height: 150px;
-    }
+  }
+  #figure {
+    width: 100%;
+    height: 150px;
   }
 }
 .ranking {
