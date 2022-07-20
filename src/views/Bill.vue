@@ -60,7 +60,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
+import {Component, Watch} from 'vue-property-decorator';
 import Icon from '@/components/Icon.vue';
 import Layout from '@/components/Layout.vue';
 import dayjs from 'dayjs';
@@ -75,8 +75,8 @@ type Group = {
   components: {Icon, Layout}
 })
 export default class Bill extends Vue{
-  year = dayjs().year().toString();
-  month = (dayjs().month() + 1).toString();
+  year = window.sessionStorage.getItem('year') || dayjs().year().toString();
+  month = window.sessionStorage.getItem('month') || (dayjs().month() + 1).toString();
 
   get years() {
     const endYear = dayjs().year();
@@ -203,6 +203,15 @@ export default class Bill extends Vue{
     } else {
       return -record.amount;
     }
+  }
+
+  @Watch('year')
+  saveYear(year: string) {
+    window.sessionStorage.setItem('year', year);
+  }
+  @Watch('month')
+  saveMonth(month: string) {
+    window.sessionStorage.setItem('month', month);
   }
 }
 </script>

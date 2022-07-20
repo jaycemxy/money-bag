@@ -51,7 +51,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component, Watch} from 'vue-property-decorator';
+import {Component} from 'vue-property-decorator';
 import Icon from '@/components/Icon.vue';
 import dayjs from 'dayjs';
 import DatePicker from '@/components/DatePicker.vue';
@@ -111,11 +111,6 @@ export default class EditRecord extends Vue {
         this.$router.replace('/bill');
       }
     }
-  }
-
-  @Watch('record.createAt')
-  log(val: Date) {
-    console.log(val);
   }
 }
 </script>

@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component, Watch} from 'vue-property-decorator';
+import {Component} from 'vue-property-decorator';
 import TagList from '@/components/Money/TagList.vue';
 import Calculator from '@/components/Money/Calculator.vue';
 import clone from '@/lib/clone';
@@ -40,14 +40,6 @@ export default class Money extends Vue {
     this.$store.commit('insertRecord', clone<RecordItem>(this.record));
     this.record =this.initRecord();
     this.$router.replace('/bill');
-  }
-
-  @Watch('record', {deep: true})
-  listenRecord(val: RecordItem) {
-    console.log(val.tag.name, val.tag.value);
-    console.log(val.type);
-    console.log(val.note);
-    console.log(val.amount);
   }
 }
 </script>
