@@ -7523,6 +7523,11 @@ node-addon-api@^1.7.1:
   resolved "https://registry.npmmirror.com/node-addon-api/-/node-addon-api-1.7.2.tgz#3df30b95720b53c24e59948b49532b662444f54d"
   integrity sha512-ibPK3iA+vaY1eEjESkQkM0BbCqFOaZMiXRTtdB0u7b4djtY6JnsjvPdUHVMg6xQt3B8fpTTWHI9A+ADjM9frzg==
 
+node-bin-setup@^1.0.0:
+  version "1.1.0"
+  resolved "https://registry.npmmirror.com/node-bin-setup/-/node-bin-setup-1.1.0.tgz#9df94c41335a8f41958a639b2736f860582a209c"
+  integrity sha512-pTeU6NgUrexiLNtd+AKwvg6cngHMvj5FZ5e2bbv2ogBSIc9yhkXSSaTScfSRZnwHIh5YFmYSYlemLWkiKD7rog==
+
 node-cache@^4.1.1:
   version "4.2.1"
   resolved "https://registry.npmmirror.com/node-cache/-/node-cache-4.2.1.tgz#efd8474dee4edec4138cdded580f5516500f7334"
@@ -7585,6 +7590,13 @@ node-releases@^2.0.5:
   version "2.0.6"
   resolved "https://registry.npmmirror.com/node-releases/-/node-releases-2.0.6.tgz#8a7088c63a55e493845683ebf3c828d8c51c5503"
   integrity sha512-PiVXnNuFm5+iYkLBNeq5211hvO38y63T0i2KKh2KnUs3RpzJ+JtODFjkD8yjLwnDkTYF1eKXheUwdssR+NRZdg==
+
+node@12.14.0:
+  version "12.14.0"
+  resolved "https://registry.npmmirror.com/node/-/node-12.14.0.tgz#709ab2fa322c241235d49eb5687a8ed21ee862c7"
+  integrity sha512-F244ZJGiuo+eCtgpwcWWxQxH3fnNgWfO1vw2R6IzoeXrMDCLd2UVOSar1bmZAcAPHJXh4SYKgOXRpYKzRegkPw==
+  dependencies:
+    node-bin-setup "^1.0.0"
 
 nopt@^5.0.0:
   version "5.0.0"

@@ -5,6 +5,9 @@
 3. 项目中还应用到了许多vue.js提供的新特性，包括slot插槽、mixin混入等
 4. 引入svg-sprite-loader处理并展示Icon，引入echarts展示折线图数据
 - 技术栈：Vue + VueRouter + VueX + TypeScript + echarts
-- 预览链接：
+- 预览链接：https://jaycemxy.github.io/money-bag-website/#/money
 - 源码地址：https://github.com/jaycemxy/money-bag
+
+#### 移动端直接扫描二维码访问
+![qrcode.png](https://s2.loli.net/2022/07/22/U4r8uBth6DbiM1x.png)
 
