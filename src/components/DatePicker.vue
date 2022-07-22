@@ -28,7 +28,7 @@ import dayjs from 'dayjs';
 
 @Component
 export default class DatePicker extends Vue {
-  @Prop(String) initialDate?: string;
+  @Prop(String) initialDate!: string;
 
   year = dayjs(this.initialDate).year();
   month = dayjs(this.initialDate).month() + 1;
@@ -44,6 +44,7 @@ export default class DatePicker extends Vue {
     }
     return result;
   }
+
   get days(): number {
     const d = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     // 判断是否为闰年
@@ -57,6 +58,7 @@ export default class DatePicker extends Vue {
       return d[this.month - 1];
     }
   }
+
   beautify(m: number) {
     return m < 10 ? '0' + m.toString() : m.toString();
   }
@@ -71,7 +73,7 @@ export default class DatePicker extends Vue {
   }
   @Watch('date')
   onDateChange(date: number) {
-      this.$emit('update:date', date);
+    this.$emit('update:date', date);
   }
 }
 </script>
