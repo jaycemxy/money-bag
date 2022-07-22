@@ -32,7 +32,7 @@ export default class TabBar extends Vue {
   align-items: center;
   &-item {
     font-size: 20px;
-    padding: 24px 16px 8px 16px;
+    padding: 4px;
     border-bottom: 1px solid transparent;
     &.selected {
       border-bottom: 1px solid #333333;

@@ -1,7 +1,7 @@
 <template>
   <div class="money">
     <div class="types">
-      <TabBar :bars="[{name:'支出',value:'-'}, {name:'收入', value:'+'}]" :c-bar.sync="record.type"/>
+      <TabBar class-prefix="types" :bars="[{name:'支出',value:'-'}, {name:'收入', value:'+'}]" :c-bar.sync="record.type"/>
       <button class="cancel" @click="cancel">取消</button>
     </div>
     <TagList v-if="record.type==='-'" class-prefix="money" class="tag-list" :selected-tag.sync="record.tag" :dynamic="true" :tag-list="tagList"/>
@@ -64,6 +64,9 @@ export default class Money extends Vue {
     display: flex;
     justify-content: center;
     position: relative;
+    ::v-deep .types-tab-bar-item {
+      padding: 24px 16px 8px 16px;
+    }
     .cancel {
       position: absolute;
       top: 50%;
