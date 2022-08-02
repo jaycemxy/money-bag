@@ -173,19 +173,19 @@ export default class Calculator extends Vue {
     this.$emit('complete');
   }
 
-  remove() {  
+  remove() {
     if (this.output.length > 1) {
       const last = this.output.slice(-1);
       if (last === '.') {
-          this.dot = true;
+        this.dot = true;
       } else if ('+-'.indexOf(last) >= 0) {
-          this.operator = '';
+        this.operator = '';
       } else if ('0123456789'.indexOf(last) >= 0) {
-          if (this.dot) {
-              this.validNumberBeforeDot += 1;
-          } else {
-              this.validNumberAfterDot += 1;
-          }
+        if (this.dot) {
+          this.validNumberBeforeDot += 1;
+        } else {
+          this.validNumberAfterDot += 1;
+        }
       }
       this.output = this.output.slice(0, -1);
     } else {

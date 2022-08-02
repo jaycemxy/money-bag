@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component, Watch} from 'vue-property-decorator';
+import {Component} from 'vue-property-decorator';
 import TagList from '@/components/Money/TagList.vue';
 import Calculator from '@/components/Money/Calculator.vue';
 import clone from '@/lib/clone';
@@ -40,8 +40,6 @@ export default class Money extends Vue {
     this.record =this.initRecord();
     this.$router.replace('/bill');
   }
-
-  
 }
 </script>
 

@@ -4,7 +4,7 @@
     <select v-model="type" class="type">
       <option v-for="(t, index) in typeList" :key="index" :value="t.value">{{t.name}}</option>
     </select>
-    <Icon name="triangle"/>
+    <!-- <Icon name="triangle"/> -->
     <TabBar class-prefix="interval" :bars="intervalList" :c-bar.sync="interval"/>
   </header>
 
